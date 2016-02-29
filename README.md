@@ -10,9 +10,8 @@
 
 ## 基础知识
 
-- 线性代数资料
-```
-http://wenku.baidu.com/link?url=AC9Hob7_GwpPGXS7BZSD7gwU8vElH0RDvjlPxDrL7C0sFH6Gr9QLbV1mHJAeMOKf9XUUrliPIFdoIzRTaTIDp1CKE7E5HH9Fr5RV2Ht6NJm#```
+- [线性代数资料](http://wenku.baidu.com/link?url=AC9Hob7_GwpPGXS7BZSD7gwU8vElH0RDvjlPxDrL7C0sFH6Gr9QLbV1mHJAeMOKf9XUUrliPIFdoIzRTaTIDp1CKE7E5HH9Fr5RV2Ht6NJm#)
+
 
 
 
