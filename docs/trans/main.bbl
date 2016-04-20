@@ -1,9 +1,135 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{ma2014covariance}
-Bingpeng Ma, Yu~Su, and Fr{\'e}d{\'e}ric Jurie.
-\newblock Covariance descriptor based on bio-inspired features for person
-  re-identification and face verification.
-\newblock {\em Image and Vision Computing}, 32(6):379--390, 2014.
+\bibitem{chang2011libsvm}
+Chih-Chung Chang and Chih-Jen Lin.
+\newblock Libsvm: a library for support vector machines.
+\newblock {\em ACM Transactions on Intelligent Systems and Technology (TIST)},
+  2(3):27, 2011.
+
+\bibitem{davis2007information}
+Jason~V Davis, Brian Kulis, Prateek Jain, Suvrit Sra, and Inderjit~S Dhillon.
+\newblock Information-theoretic metric learning.
+\newblock In {\em Proceedings of the 24th international conference on Machine
+  learning}, pages 209--216. ACM, 2007.
+
+\bibitem{dikmen2010pedestrian}
+Mert Dikmen, Emre Akbas, Thomas~S Huang, and Narendra Ahuja.
+\newblock Pedestrian recognition with a learned metric.
+\newblock In {\em Computer Vision--ACCV 2010}, pages 501--512. Springer, 2010.
+
+\bibitem{farenzena2010person}
+Michela Farenzena, Loris Bazzani, Alessandro Perina, Vittorio Murino, and Marco
+  Cristani.
+\newblock Person re-identification by symmetry-driven accumulation of local
+  features.
+\newblock In {\em Computer Vision and Pattern Recognition (CVPR), 2010 IEEE
+  Conference on}, pages 2360--2367. IEEE, 2010.
+
+\bibitem{gray2007evaluating}
+Douglas Gray, Shane Brennan, and Hai Tao.
+\newblock Evaluating appearance models for recognition, reacquisition, and
+  tracking.
+\newblock In {\em Proc. IEEE International Workshop on Performance Evaluation
+  for Tracking and Surveillance (PETS)}, volume~3. Citeseer, 2007.
+
+\bibitem{gray2008viewpoint}
+Douglas Gray and Hai Tao.
+\newblock Viewpoint invariant pedestrian recognition with an ensemble of
+  localized features.
+\newblock In {\em Computer Vision--ECCV 2008}, pages 262--275. Springer, 2008.
+
+\bibitem{guillaumin2009you}
+Matthieu Guillaumin, Jakob Verbeek, and Cordelia Schmid.
+\newblock Is that you? metric learning approaches for face identification.
+\newblock In {\em Computer Vision, 2009 IEEE 12th international conference on},
+  pages 498--505. IEEE, 2009.
+
+\bibitem{guillaumin2010multiple}
+Matthieu Guillaumin, Jakob Verbeek, and Cordelia Schmid.
+\newblock Multiple instance metric learning from automatically labeled bags of
+  faces.
+\newblock In {\em Computer Vision--ECCV 2010}, pages 634--647. Springer, 2010.
+
+\bibitem{hirzer2011person}
+Martin Hirzer, Csaba Beleznai, Peter~M Roth, and Horst Bischof.
+\newblock Person re-identification by descriptive and discriminative
+  classification.
+\newblock In {\em Image Analysis}, pages 91--102. Springer, 2011.
+
+\bibitem{hoi2006learning}
+Steven~CH Hoi, Wei Liu, Michael~R Lyu, and Wei-Ying Ma.
+\newblock Learning distance metrics with contextual constraints for image
+  retrieval.
+\newblock In {\em Computer Vision and Pattern Recognition, 2006 IEEE computer
+  society conference on}, volume~2, pages 2072--2078. IEEE, 2006.
+
+\bibitem{huang2008labeled}
+Gary~B Huang, Marwan Mattar, Tamara Berg, and Eric Learned-Miller.
+\newblock Labeled faces in the wild: A database for studying face recognition
+  in unconstrained environments.
+\newblock In {\em Workshop on faces in'Real-Life'Images: detection, alignment,
+  and recognition}, 2008.
+
+\bibitem{kumar2009attribute}
+Neeraj Kumar, Alexander~C Berg, Peter~N Belhumeur, and Shree~K Nayar.
+\newblock Attribute and simile classifiers for face verification.
+\newblock In {\em Computer Vision, 2009 IEEE 12th International Conference on},
+  pages 365--372. IEEE, 2009.
+
+\bibitem{lowe2004distinctive}
+David~G Lowe.
+\newblock Distinctive image features from scale-invariant keypoints.
+\newblock {\em International journal of computer vision}, 60(2):91--110, 2004.
+
+\bibitem{nowak2007learning}
+Eric Nowak and Fr{\'e}d{\'e}ric Jurie.
+\newblock Learning visual similarity measures for comparing never seen objects.
+\newblock In {\em Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE
+  Conference on}, pages 1--8. IEEE, 2007.
+
+\bibitem{ojala2002multiresolution}
+Timo Ojala, Matti Pietik{\"a}inen, and Topi M{\"a}enp{\"a}{\"a}.
+\newblock Multiresolution gray-scale and rotation invariant texture
+  classification with local binary patterns.
+\newblock {\em Pattern Analysis and Machine Intelligence, IEEE Transactions
+  on}, 24(7):971--987, 2002.
+
+\bibitem{prosser2010person}
+Bryan Prosser, Wei-Shi Zheng, Shaogang Gong, Tao Xiang, and Q~Mary.
+\newblock Person re-identification by support vector ranking.
+\newblock In {\em BMVC}, volume~2, page~6, 2010.
+
+\bibitem{wang2007shape}
+Xiaogang Wang, Gianfranco Doretto, Thomas Sebastian, Jens Rittscher, and Peter
+  Tu.
+\newblock Shape and appearance context modeling.
+\newblock In {\em Computer Vision, 2007. ICCV 2007. IEEE 11th International
+  Conference on}, pages 1--8. IEEE, 2007.
+
+\bibitem{weinberger2008fast}
+Kilian~Q Weinberger and Lawrence~K Saul.
+\newblock Fast solvers and efficient implementations for distance metric
+  learning.
+\newblock In {\em Proceedings of the 25th international conference on Machine
+  learning}, pages 1160--1167. ACM, 2008.
+
+\bibitem{weinberger2009distance}
+Kilian~Q Weinberger and Lawrence~K Saul.
+\newblock Distance metric learning for large margin nearest neighbor
+  classification.
+\newblock {\em The Journal of Machine Learning Research}, 10:207--244, 2009.
+
+\bibitem{ye2007adaptive}
+Jieping Ye, Zheng Zhao, and Huan Liu.
+\newblock Adaptive distance metric learning for clustering.
+\newblock In {\em Computer Vision and Pattern Recognition, 2007. CVPR'07. IEEE
+  Conference on}, pages 1--7. IEEE, 2007.
+
+\bibitem{zheng2011person}
+Wei-Shi Zheng, Shaogang Gong, and Tao Xiang.
+\newblock Person re-identification by probabilistic relative distance
+  comparison.
+\newblock In {\em Computer vision and pattern recognition (CVPR), 2011 IEEE
+  conference on}, pages 649--656. IEEE, 2011.
 
 \end{thebibliography}

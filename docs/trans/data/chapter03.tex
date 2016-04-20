@@ -1,26 +1,29 @@
-\subsection{KISS度量学习}
-我们的方法考虑到两个独立的                    ，相同种类与否由\cite{ma2014covariance}是否属于该种类的可信度决定。从数学推导的视角来看，最优的数据上的决策是否一对点对相同可以由一个相似度来获得。所以我们检验假说H0两者不同和对立假说H1 两者相同：
-$$\delta(x_{i},y_{j}) = \log\bigg(\frac{p(x_{i},x_{j}|H_{0})}{p(x_{i},x_{j}|H_{1})}\bigg)$$
+\section{KISS度量学习}
+我们的方法对观察到的相同对和不同对的共同点考虑两个不同的生成过程，相同种类与否由是否属于该种类的可信度决定。从数学推导的视角来看，最优的数据上的决策是否一对点对相同可以由一个相似度来获得。所以我们检验假说$H_{0}$两者不同和对立假说$H_{1}$ 两者相同：
+$$\delta(x_{i},y_{j}) = \log\bigg(\frac{p(x_{i},x_{j}|H_{0})}{p(x_{i},x_{j}|H_{1})}\bigg)\eqno{(9)}$$
 
-获得较大的值标识H0是有效的。相反，较小的值意味着被假说H0拒绝，点对被看做是相同的。为了使特征空间中的实际分布具有独立性，我们假设点对间的差异为0，所以等式9可以被重写为
-$$\delta(\mathbf x_{ij}) = \log \bigg(\frac{p(\mathbf x_{ij}|H_{0})}{p(\mathbf x_{ij}|H_{1})}\bigg) = \log\bigg(\frac{f(\mathbf x_{ij}|\theta_{0})}{f(\mathbf x_{ij}|\theta_{1})}\bigg)$$
-其中   是假说H1点对相同的含有参数  的概率密度函数，与假设点对不相同的假说H0相对。将特征间的差异空间看作一个高斯结构我们可以简化这个问题，等式被重新写为
-$$\delta(\mathbf x_{ij}) = \log \Bigg(\frac{\frac{1}{\sqrt{2\pi|\Sigma_{y_{ij}=0}|}}\exp(-1/2 \mathbf x_{ij}^T \Sigma_{y_{ij}=0}^{-1}\mathbf x_{ij}}{\frac{1}{\sqrt{2 \pi |\Sigma_{y_{ij}=1}|}}\exp(-1/2 \mathbf x_{ij}^{T}\Sigma_{y_{ij}=1}^{-1} \mathbf x_{ij})}\Bigg)$$
+如果$\delta(\mathbf x_{i},\mathbf x_{j})$获得较大的值标识$H_{0}$是有效的。相反，较小的值意味着被假说$H_{0}$拒绝，点对被看做是相同的。为了使特征空间中的实际分布具有独立性，我们假设该空间中点对间的平均差异$\mathbf x_{ij} = \mathbf x_{i} - \mathbf x_{j}$为0，所以等式可以被重写为
+
+$$\delta(\mathbf x_{ij}) = \log \bigg(\frac{p(\mathbf x_{ij}|H_{0})}{p(\mathbf x_{ij}|H_{1})}\bigg) = \log\bigg(\frac{f(\mathbf x_{ij}|\theta_{0})}{f(\mathbf x_{ij}|\theta_{1})}\bigg)\eqno{(10)}$$
+
+其中$f(\mathbf x_{ij} | \theta_{1})$是假说$H_{1}$点对($i,j$)相同$y_{ij}=1$的含有参数 $\theta_{1}$的概率密度函数，与假设点对不相同的假说$H_{0}$相对。将特征间的差异空间看作一个高斯结构我们可以简化这个问题，等式被重新写为
+
+$$\delta(\mathbf x_{ij}) = \log \Bigg(\frac{\frac{1}{\sqrt{2\pi|\Sigma_{y_{ij}=0}|}}\exp(-1/2 \mathbf x_{ij}^T \Sigma_{y_{ij}=0}^{-1}\mathbf x_{ij}}{\frac{1}{\sqrt{2 \pi |\Sigma_{y_{ij}=1}|}}\exp(-1/2 \mathbf x_{ij}^{T}\Sigma_{y_{ij}=1}^{-1} \mathbf x_{ij})}\Bigg)\eqno{(11)}$$
 
 其中
-$$\Sigma_{y_{ij}=1} = \sum_{y_{ij} = 1}(\mathbf x_{i} - \mathbf x_{j})(\mathbf x_{i} - \mathbf x_{j})^{T}$$
+$$\Sigma_{y_{ij}=1} = \sum_{y_{ij} = 1}(\mathbf x_{i} - \mathbf x_{j})(\mathbf x_{i} - \mathbf x_{j})^{T}\eqno{(12)}$$
 
-$$\Sigma_{y_{ij}=0} = \sum_{y_{ij} = 0}(\mathbf x_{i} - \mathbf x_{j})(\mathbf x_{i} - \mathbf x_{j})^{T}$$
+$$\Sigma_{y_{ij}=0} = \sum_{y_{ij} = 0}(\mathbf x_{i} - \mathbf x_{j})(\mathbf x_{i} - \mathbf x_{j})^{T}\eqno{(13)}$$
 
-点对间的差异是对称的。所以，我们有均值为0，且公式  。高斯中最大化相似度评估等价于采用最小二乘法最小化马氏距离从。 这是我们可以分别针对两个独立的集找出个字相关的方向。通过取对数，我们可以重新整理相似度的检验如下：
-$$\delta(x_{ij})= \mathbf x_{ij}^{T}\Sigma_{y_{ij}=1}^{-1}\mathbf x_{ij} + \log(|\Sigma_{y_{ij}=1}|) - \mathbf x_{ij}^{T}\Sigma_{y_{ij}=0}^{-1}\mathbf x_{ij} - \log(|\Sigma_{y_{ij}=0}|)$$
+点对间的差异$\mathbf x_{ij}$是对称的。所以，我们有均值为0，且$\theta_{1} =(\mathbf 0, \Sigma_{y_{ij}=1})$ ,$\theta_{0} =(\mathbf 0, \Sigma_{y_{ij}=0})$ 。高斯中最大化相似度评估等价于采用最小二乘法最小化马氏距离从。 这是我们可以分别针对两个独立的集找出个字相关的方向。通过取对数，我们可以重新整理相似度的检验如下：
+$$\delta(x_{ij})= \mathbf x_{ij}^{T}\Sigma_{y_{ij}=1}^{-1}\mathbf x_{ij} + \log(|\Sigma_{y_{ij}=1}|) - \mathbf x_{ij}^{T}\Sigma_{y_{ij}=0}^{-1}\mathbf x_{ij} - \log(|\Sigma_{y_{ij}=0}|)\eqno{(14)}$$
 
 更进一步地，我们去掉常数项因为他们只是提供了一个偏移量，简化如下：
-$$\delta (\mathbf x_{ij})=\mathbf x_{ij}^{T}(\Sigma_{y_{ij}=1}^{-1}-\Sigma_{y_{ij}=0}^{-1})\mathbf x_{ij}$$
+$$\delta (\mathbf x_{ij})=\mathbf x_{ij}^{T}(\Sigma_{y_{ij}=1}^{-1}-\Sigma_{y_{ij}=0}^{-1})\mathbf x_{ij}\eqno{(15)}$$
 
 
 最后，我们获得我们的可以反映了相似度检验的马氏距离度量如下
 
-$$d_{\mathbf M}^2(\mathbf x_{i} - \mathbf x_{j}) = (\mathbf x_{i} - \mathbf x_{j})^{T} \mathbf M (x_{i}-x_{j})$$
-通过重新映射     到半正定矩阵。所以，我们通过等价裁剪  的范围我们得到了   。
+$$d_{\mathbf M}^2(\mathbf x_{i} - \mathbf x_{j}) = (\mathbf x_{i} - \mathbf x_{j})^{T} \mathbf M (x_{i}-x_{j})\eqno{(16)}$$
+通过重新映射$\hat{\mathbf M } = \bigg( \Sigma_{y_{ij}=1}^{-1}-\Sigma_{y_{ij}=0}^{-1}\bigg)$得到半正定矩阵$\mathbf M$。所以，我们通过等价裁剪  的范围我们得到了$\hat{\mathbf M}$。
 
