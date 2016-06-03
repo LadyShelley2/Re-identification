@@ -1,0 +1,127 @@
+\section{核鉴别稀疏保持嵌入}
+\subsection{核鉴别信息权重}
+将样本信息$X_{i}=[x_{i1},\ldots,x_{ik}]$映射到高维空间为$B_{i}=[\phi(x_{i1}),\ldots,\phi(x_{ik})]$，只要证明$\Vert x_{ij}-X_{i}t\Vert$越小，则$\Vert \phi(x_{ij})-X_{i}t\Vert$越小最小二乘问题变为
+$$\min_{t}\Vert{\phi{(x_{ij})}-B_{i}t}\Vert_{2}$$
+$$s.t.\quad It=1$$
+因为$B$和$\phi{x}$是未知的，所以目标函数不能直接求解，所以将问题转化成以下约束：
+$$\min_{t}\Vert{B^{T}\phi{(x_{ij})}-B^{T}B_{i}t}\Vert_{2}$$
+$$s.t.\quad It=1$$
+求证 $\Vert x_{ij}-X_{i}t\Vert$，$$\min_{t}\Vert{\phi{(x_{ij})}-B_{i}t}\Vert_{2}$$，$$\min_{t}\Vert{B^{T}\phi{(x_{ij})}-B^{T}B_{i}t}\Vert_{2}$$同时达到最小值
+
+\begin{displaymath}
+	B_{i}^{T}\phi{(x_{ij})}=
+		\left[
+			\begin{array}{ccc}
+				\phi{(x_{i1})}\\
+				\phi{(x_{i2})}\\
+				\vdots\\
+				\phi{(x_{ik})}
+			\end{array}
+		\right]\phi{(x_{ij})}=
+		\left[
+			\begin{array}{ccc}
+				k(x_{i1},x_{ij})\\
+				k(x_{i2},x_{ij})\\
+				\vdots\\
+				k(x_{ik},x_{ij})
+			\end{array}
+		\right]
+\end{displaymath}
+
+\begin{displaymath}
+B_{i}^{T}B_{i}=
+	\left[
+		\begin{array}{ccc}
+			\phi{(x_{i1})}\\
+			\phi{(x_{i2})}\\
+			\vdots\\
+			\phi{(x_{ik})}
+		\end{array}
+	\right]
+	\left[
+		\begin{array}{cccc}
+			\phi{(x_{i1})} & \phi{(x_{i2})} & \ldots & \phi{(x_{ik})}
+		\end{array}
+	\right]=
+	\left[
+		\begin{array}{cccc}
+			k(x_{i1},x_{i1}) & k(x_{i1},x_{i2}) & \ldots & k(x_{i1},x_{ij})\\
+			k(x_{i2},x_{i1}) & k(x_{i2},x_{i2}) & \ldots & k(x_{i2},x_{ij})\\
+			\vdots & \vdots & \ddots & \vdots \\
+			k(x_{i3},x_{i1}) & k(x_{i3},x_{i2}) & \ldots & k(x_{i3},x_{ij})
+		\end{array}
+	\right]
+\end{displaymath}
+目标函数转换成线性规划问题，可以求解。
+
+\subsection{核稀疏重构权重}
+
+令$C=[\phi{(X_{1})},\phi{(X_{2})},\ldots,\phi{(X_{c})}]$,令$C_{i}=[\phi{(X_{1})},\ldots,\phi{(X_{i-1})},\phi{(X_{i+1})},\ldots,\phi{(X_{c}})]$即从超完备字典中剔除样本$X_{i}$
+令$er=\phi{(x_{ij})}-B_{i}\hat{t}=\phi{(x_{ij})}-C\hat{h}$,即样本由鉴别信息权重重构后得到的残差，对其对样本中的其他类进行重构：
+\begin{displaymath}
+	\begin{array}{ll}
+		\min_{s} & \Vert{s}\Vert_{1}\\
+		\\
+		s.t.  & \Vert{er-C_{i}s}\Vert < \epsilon \\
+		& Is = 0
+	\end{array}
+\end{displaymath}
+同理由于函数$\phi$不能直接求解，将${er-C_{i}s} $左乘$C^{T}$转换成${C_{i}^{T}(er-C_{i}s)}$，即$C^{T}\phi{(x_{ij})}-C^{T}C\hat{h}-C^{T}C_{i}s$
+
+求证
+\newtheorem{confirm}{公理}[section]
+	\begin{confirm}
+		对任意$\epsilon\ge 0$都存在$\delta\ge 0$，只要$C^{T}\phi{(x_{ij})}-C^{T}C\hat{h}-C^{T}C_{i}s<\delta$
+		就有$er-C_{i}s < \epsilon$.
+	\end{confirm}
+
+\begin{displaymath}
+	C^{T}\phi{(x_{ij})}=
+		\left[
+			\begin{array}{cccc}
+				\phi{(x_{11})} & \phi{(x_{12})} & \ldots & \phi{(x_{1k})}\\
+				\phi{(x_{21})} & \phi{(x_{22})} & \ldots & \phi{(x_{2k})}\\
+				\vdots & \vdots & \ddots & \vdots\\
+				\phi{(x_{c1})} & \phi{(x_{c2})} & \ldots & \phi{(x_{ck})}
+			\end{array}
+		\right]\phi{(x_{ij})}
+		=\left[
+			\begin{array}{cccc}
+			  k(x_{11},x_{ij}) & k(x_{12},x_{ij}) & \ldots &\k(x_{1k},x_{ij}) \\
+			  k(x_{21},x_{ij}) & k(x_{22},x_{ij}) & \ldots &\k(x_{2k},x_{ij}) \\
+			  \vdots & \vdots & \ddots & \vdots \\
+			  k(x_{c1},x_{ij}) & k(x_{c2},x_{ij}) & \ldots &\k(x_{ck},x_{ij}) 
+			\end{array}
+		 \right]
+\end{displaymath}
+\begin{displaymath}
+	C^{T}C=
+		\left[
+			\begin{array}{cccc}
+				\sum_{j=1}^{k}k(x_{1j},x_{1j}) & \sum_{j=1}^{k}k(x_{1j},x_{2j}) & \ldots & \sum_{j=1}^{k}k(x_{1j},x_{cj}) \\
+				\sum_{j=1}^{k}k(x_{2j},x_{1j}) & \sum_{j=1}^{k}k(x_{2j},x_{2j}) & \ldots & \sum_{j=1}^{k}k(x_{2j},x_{cj}) \\
+				\vdots & \vdots & \vdots & \ddots \\
+				\sum_{j=1}^{k}k(x_{cj},x_{1j}) & \sum_{j=1}^{k}k(x_{cj},x_{2j}) & \ldots & \sum_{j=1}^{k}k(x_{cj},x_{cj}) 
+			\end{array}
+		\right]
+\end{displaymath}
+\begin{displaymath}
+	C^{T}C_{i}=
+		\left[
+			\begin{array}{cccccc}
+				\sum_{j=1}^{k}k(x_{1j},x_{1j}) & \ldots & \sum_{j=1}^{k}k(x_{1j},x_{i-1,j}) & \sum_{j=1}^{k}k(x_{1j},x_{i+1,j}) &\ldots & \sum_{j=1}^{k}k(x_{1j},x_{cj}) \\
+				\sum_{j=1}^{k}k(x_{2j},x_{1j}) & \ldots & \sum_{j=1}^{k}k(x_{2j},x_{i-1,j}) & \sum_{j=1}^{k}k(x_{1j},x_{i+1,j}) &\ldots & \sum_{j=1}^{k}k(x_{2j},x_{cj}) \\
+				\vdots & \ddots & \vdots & \vdots & \ddots & \vdots \\
+				\sum_{j=1}^{k}k(x_{cj},x_{1j}) &\ldots & \sum_{j=1}^{k}k(x_{cj},x_{i-1,j}) & \sum_{j=1}^{k}k(x_{cj},x_{i+1,j}) &\ldots & \sum_{j=1}^{k}k(x_{cj},x_{cj}) 
+			\end{array}
+		\right]
+\end{displaymath}
+将$\hat{s}$按照不同类别分块，得$\hat{s}=[\hat{s}_{1},\ldots,\hat{s}_{i-1},\hat{s}_{i+1},\ldots,\hat{s}_{c}]$,将$\hat{s}$稀疏到完备字典上得$\hat{l}=[\hat{s}_{1},\ldots,\hat{s}_{i-1},\vec{0},\hat{s}_{i+1},\ldots,\hat{s}_{c}]$ 结合得到的鉴别权重$\hat{t}$,将系数串联得到$\hat{d}=\hat{l}+\hat{h}$,这样我们就得到了核鉴别稀疏权重。由于$I\hat{l}=I\hat{s}=0$，$I\hat{t}=1$，故$I\hat{d}=1$，能够保持旋转，平移，尺度不变的特性，证明过程见\cite{马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法}
+
+\subsection{KDSPE的目标函数}
+与DSPE同理，KDSPE的目标函数数学模型如下：
+$$\min_{W}\quad\sum_{i=1}^{n}\Vert{W^{T}x_{i}-W^{T}X\hat{d}_{i}}\Vert^{2}$$
+$$s.t.\quad W^{T}XX^{T}W = 1$$
+与DSPE的推导相似，可得到
+$$XMX^{T}W = \lambda XX^{T}W$$
+选取得到的最大的$d$个特征值所对应的特征向量$\mathbf{a}_{i}$构成的特征子空间，即可得到KDPE的线性降维映射$W_{DSPE}=[a_{1},a_{2},\ldots,a_{d}]$.

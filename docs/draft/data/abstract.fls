@@ -1,0 +1,6 @@
+PWD /Users/zl/Documents/Re-identification/docs/draft/data
+INPUT /usr/local/texlive/2015/texmf.cnf
+INPUT /usr/local/texlive/2015/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2015/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT abstract.tex
+OUTPUT abstract.log

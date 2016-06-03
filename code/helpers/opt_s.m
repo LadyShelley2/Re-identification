@@ -1,0 +1,12 @@
+function x = opt_s(ctphixij,ctc,ctci,h,delta)
+x_0 = zeros(size(ctci,2),1);
+x_0(1)=0.5;
+x_0(2)=-0.5;
+Aeq = ones(1,size(ctci,2));
+beq = 0;
+[x, fval] = fmincon(@(s)func_goal(s),x_0,[],[],Aeq,beq,[],[],@(s)nonlin_con(ctphixij,ctc,ctci,h, delta,s));
+function f = func_goal(x)
+f = sum(abs(x));
+function [c,ceq]= nonlin_con(ctphixij,ctc,ctci,h, delta,x)
+c = sum((ctphixij-ctc*h-ctci*x).^2)-delta;
+ceq = [];

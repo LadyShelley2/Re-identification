@@ -1,0 +1,24 @@
+%!TEX program = xelatex
+
+\documentclass{article}
+\usepackage{fontspec,xunicode,xltxtra,latexsym}
+%\usepackage[german]{bable}
+\usepackage{xeCJK}
+
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\setmainfont{Hiragino Sans GB}
+ \title{核鉴别稀疏保持嵌入}
+ \author{李贝贝}
+ \date{}
+ \begin{document}
+ \maketitle{}
+ \input{data/abstract.tex}
+ \input{data/chapter01.tex}
+ \input{data/chapter02.tex}
+ \input{data/chapter03.tex}
+ \input{data/chapter04.tex} 
+ \input{data/chapter05.tex}
+ \renewcommand\refname{参考文献} 
+ \bibliographystyle{plain}
+ \bibliography{data/reference.bib}
+ \end{document}

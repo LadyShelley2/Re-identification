@@ -1,0 +1,175 @@
+\documentclass[bachelor,zhspacing]{cqu}  %单面打印版本
+\usepackage{etex}
+\def\tightlist{}
+
+%%在这增加你需要的其它包
+\definecolor{hellgelb}{rgb}{1,1,0.8}
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{1,0,0}
+\definecolor{colString}{rgb}{0,0.5,0}
+\usepackage{listings}
+\lstset{%
+    float=hbp,%
+    basicstyle=\ttfamily\small, %
+    identifierstyle=\color{colIdentifier}, %
+    keywordstyle=\color{colKeys}, %
+    stringstyle=\color{colString}, %
+    commentstyle=\color{colComments}, %
+    columns=flexible, %
+    tabsize=4, %
+    frame=single, %
+    extendedchars=true, %
+    showspaces=false, %
+    showstringspaces=false, %
+    numbers=left, %
+    numberstyle=\tiny, %
+    breaklines=true, %
+   backgroundcolor=\color{hellgelb}, %
+    breakautoindent=true, %
+    captionpos=b,%
+	xleftmargin=0pt%
+}
+
+\begin{document}
+
+%-----------------------------------论文题目-------------------------------------------------
+\xuehao{20121892}
+\cntitle{重庆大学\LaTeX 学位论文模板CQU使用说明}
+\cnauthor{张乐}
+\cnmajor{软件工程}
+\cnteacher{葛永新}
+\cnxueyuan{软件学院}
+\entitle{An Instruction of the \LaTeX\ Templet for Chongqing University Thesis}
+\enauthor{Le Zhang}
+\enmajor{Software Engineering}
+\enteacher{Prof. Yongxin Ge}
+\enxueyuan{College of Software}
+\cnkind{****}
+\enkind{****}
+%\cnzlteacher{ }  %%助理教师，如果必要，还要将cqu.cls中的有关该项前的%号去掉
+%\enzlteacher{ }
+\cndate{二O一六年六月}
+\endate{June 2016}
+%%%%只需修改上面的相关信息%%%%%%%%
+\makecntitle 
+\makeentitle 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{Roman}
+\setcounter{page}{0}
+%------------------------------------文章摘要------------------------------------------------------------
+\cnkeywords{模板，摘要，论文，\LaTeX}
+\begin{cnabstract}
+摘要是设计或论文内容不加注释和评论的简短陈述，应以第三人称陈述。它应具有独立性和自含性，
+即不阅读设计或论文的全文，就能获得必要的信息，摘要的内容应包含与设计或论文同等量的主要信
+息，供读者确定有无必要阅读全文，也供文摘等二次文献采用。\par
+摘要一般应说明研究工作目的、实验研究方法、结果和最终结论等，而重点是结果和结论。摘要中一
+般不用图、表、化学结构式、计算机程序，不用非公知公用的符号、术语和非法定的计量单位。\par
+摘要页置于英文题名页后。 \par
+中文摘要一般为400汉字左右，用小四号宋体。 \par
+关键词是为了文献标引工作从设计（论文）中选取出来用以表示全文主题内容信息款目的单词或术
+语。一般每篇设计（论文）应选取3~5个词作为关键词，关键词间用逗号隔开，最后一个词后不打标点
+符号。以显著的字符排在同种语言摘要的下方。如有可能，尽量用《汉语主题词表》等词表提供的规
+范词。\par
+本文介绍重庆大学论文模板cqu的使用方法。本模板符合学校的本科论文格式基本要求，而硕博模板
+有待完善。
+本文的创新点主要有:
+\begin{itemize*}
+\item 用例子来解释模板的使用方法;
+\item 用废话来填充无关紧要的部分;
+\item 一边学习摸索一边编写新代码。
+\end{itemize*}
+(模板作者注:中文关键词定义cnkeywords应在使用中文摘要环境之前。英文关键词同理。)
+\end{cnabstract} 
+\enkeywords{template, \LaTeX, abstract, paper}
+\begin{enabstract}
+     An abstract of a dissertation is a summary and extraction of 
+research work and contributions. Included in an abstract should be 
+description of research topic and research objective, brief 
+introduction to methodology and research process, and summarization 
+of conclusion and contributions of the research. An abstract should be 
+characterized by independence and clarity and carry identical 
+information with the dissertation. It should be such that the general 
+idea and major contributions of the dissertation are conveyed
+without reading the dissertation.\par
+     An abstract should be concise and to the point. It is a 
+misunderstanding to make an abstract an outline of the dissertation and 
+words “the first chapter”, “the second chapter” and the like should be 
+avoided in the abstract.\par
+     Key words are terms used in a dissertation for indexing, 
+reflecting core information of the dissertation. An abstract may 
+contain a maximum of 5 key words, with semicolons used in between to 
+separate one another.
+\end{enabstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%--------------文章目录-------------
+\tableofcontents
+\listoffigures
+%\addcontentsline{toc}{section}{插图清单}
+\listoftables
+%\addcontentsline{toc}{section}{附表清单}
+
+
+%------------------------------------词汇------------------------------------------------------------
+\begin{denotation}{2.5}{0}
+
+\item[cluster] 集群
+\item[Itanium] 安腾
+\item[SMP] 对称多处理
+\item[API] 应用程序编程接口
+\item[PI]   聚酰亚胺
+\item[劝  学] 君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。
+  木直中绳。（车柔）以为轮，其曲中规。虽有槁暴，不复挺者，（车柔）使之然也。故木
+  受绳则直， 金就砺则利，君子博学而日参省乎己，则知明而行无过矣。吾尝终日而思
+  矣，  不如须臾之所学也；吾尝（足齐）而望矣，不如登高之博见也。登高而招，臂非加
+  长也，  而见者远；  顺风而呼，  声非加疾也，而闻者彰。假舆马者，非利足也，而致
+  千里；假舟楫者，非能水也，而绝江河，  君子生非异也，善假于物也。积土成山，风雨
+  兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，无以至千
+  里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽
+  木不折；  锲而不舍，金石可镂。蚓无爪牙之利，筋骨之强，上食埃土，下饮黄泉，用心
+  一也。蟹六跪而二螯，非蛇鳝之穴无可寄托者，用心躁也。\pozhehao{} 荀况
+\end{denotation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{arabic}
+
+<h1 id="绪论">绪论</h1>
+<h2 id="人脸识别研究现状">人脸识别研究现状</h2>
+<h2 id="行人再识别研究现状">行人再识别研究现状</h2>
+<h2 id="卷积神经网络">卷积神经网络</h2>
+<h2 id="论文组织结构">论文组织结构</h2>
+<h1 id="卷积神经网络-1">卷积神经网络</h1>
+<h2 id="概述">概述</h2>
+<p>卷积神经网络（Convolutional Neural Networks）是人工神经网络与深度学习思想的结合，是目前模式识别的研究热点。它的提出源于对猫的视觉皮层细胞的研究，1962年Hubel和Wiesel提出了感受野（receptive field）的概念，1984年此概念在日本学者Fukushima提出的神经认知机（neocognitron）中首次被应用。神经认知机将一个视觉模式分解成许多子模式（特征）然后进入分层递阶式相连的特征平面进行处理，尝试在物体有位移或轻微变形的时候，也能完成识别。神经认知机可以看做第一个卷积神经网络的实现。 卷积神经网络的主要特点体现在两个方面：局部连接和权值共享。局部连接是指层与层神经元之间的连接采用局部连接代替全连接；权值共享是指同一层中神经元之间的连接权值是共享的。两者使卷积神经网络在很大程度上降低了参数数量，从而使网络的复杂度降低。由于其结构与生物神经网络非常相似，即使输入的图像不做任何预处理，卷积神经网络的识别效果也比较显著，同时避免了繁琐的特征提取的过程。 本章将详细介绍卷积神经网络的基本思想、拓扑结构、理论推导以及训练和测试。 ## 主要思想 根据Hubel和Wiesel对猫初级视皮层的研究，生物的初级视皮层包括简单细胞和复杂细胞，简单细胞主要负责感知其感受野内的特定边缘刺激，而复杂细胞则以简单细胞的输出为输入，并负责以更大的感受野来感受边缘刺激。根据简单细胞和复杂细胞的工作原理，卷积神经网络主要采用三种结构来进行视皮层的模拟：局部连接、权值共享以及子采样。 ### 局部连接 局部连接是指在相邻层之间不使用全连接而使用局部连接，从而不仅减少了需要训练的参数数量，而且利用了图像的局部特征信息。 如下图所示，图a为全连接，图b为局部连接。假设图片有1000 $$1000个像素的图片，有一百万的隐层神经元，全连接需要每一个隐层神经元连接到图像的每一个像素点，有100 <span class="math inline">$\time$</span> 100 <span class="math inline">×</span> 1000000 = <span class="math inline">10<sub>12</sub></span>个连接，也就需要<span class="math inline">10<sub>12</sub></span>个参数。局部连接则只需要每个节点只与其感受野中的像素点进行相连，假设其感受野为10$<span class="math inline">10，<em>则</em><em>一</em><em>百</em><em>万</em><em>个</em><em>隐</em><em>层</em><em>神</em><em>经</em><em>元</em><em>就</em><em>只</em><em>要</em>10</span><span class="math inline">10</span>$100000 = <span class="math inline">10<sub>8</sub></span>个权值参数，权值参数的个数减少四个数量级。因此局部连接减少了所需训练的权值参数。</p>
+<h3 id="权值共享">权值共享</h3>
+<h3 id="子采样">子采样</h3>
+<h2 id="网络拓扑结构">网络拓扑结构</h2>
+<h3 id="卷积层">卷积层</h3>
+<h3 id="子采样层">子采样层</h3>
+<h3 id="分类器">分类器</h3>
+<h2 id="理论推导">理论推导</h2>
+<h2 id="网络训练和测试">网络训练和测试</h2>
+<h1 id="改进卷积神经网络">改进卷积神经网络</h1>
+<h2 id="概述-1">概述</h2>
+<h2 id="主要思想">主要思想</h2>
+<h2 id="网络拓扑结构-1">网络拓扑结构</h2>
+<h2 id="理论推导-1">理论推导</h2>
+<h1 id="基于改进卷积神经网络的人脸识别">基于改进卷积神经网络的人脸识别</h1>
+<h1 id="基于改进卷积神经网络的行人再识别">基于改进卷积神经网络的行人再识别</h1>
+<h1 id="总结和展望" class="unnumbered">总结和展望</h1>
+<div id="refs" class="references">
+
+</div>
+
+%\include{chapters/summery}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\include{chapters/appendix}  %%附录
+
+\end{document}

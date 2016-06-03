@@ -1,0 +1,68 @@
+\begin{thebibliography}{10}
+
+\bibitem{davenport2007smashed}
+Mark~A Davenport, Marco~F Duarte, Michael~B Wakin, Jason~N Laska, Dharmpal
+  Takhar, Kevin~F Kelly, and Richard~G Baraniuk.
+\newblock The smashed filter for compressive classification and target
+  recognition.
+\newblock In {\em Electronic Imaging 2007}, pages 64980H--64980H. International
+  Society for Optics and Photonics, 2007.
+
+\bibitem{de2011embedding}
+Yan De-Qin, Liu Sheng-Lan, and Li~Yan-Yan.
+\newblock An embedding dimension reduction algorithm based on sparse analysis.
+\newblock {\em Acta Automatica Sinica}, 37(11):1306--1312, 2011.
+
+\bibitem{elad2006image}
+Michael Elad and Michal Aharon.
+\newblock Image denoising via sparse and redundant representations over learned
+  dictionaries.
+\newblock {\em Image Processing, IEEE Transactions on}, 15(12):3736--3745,
+  2006.
+
+\bibitem{huang2006sparse}
+Ke~Huang and Selin Aviyente.
+\newblock Sparse representation for signal classification.
+\newblock In {\em Advances in neural information processing systems}, pages
+  609--616, 2006.
+
+\bibitem{marcellin2000overview}
+Michael~W Marcellin, Michael~J Gormish, Ali Bilgin, and Martin~P Boliek.
+\newblock An overview of jpeg-2000.
+\newblock In {\em Data Compression Conference, 2000. Proceedings. DCC 2000},
+  pages 523--541. IEEE, 2000.
+
+\bibitem{qiao2010sparsity}
+Lishan Qiao, Songcan Chen, and Xiaoyang Tan.
+\newblock Sparsity preserving projections with applications to face
+  recognition.
+\newblock {\em Pattern Recognition}, 43(1):331--341, 2010.
+
+\bibitem{roth1999nonlinear}
+Volker Roth and Volker Steinhage.
+\newblock Nonlinear discriminant analysis using kernel functions.
+\newblock In {\em Advances in neural information processing systems}. Citeseer,
+  1999.
+
+\bibitem{scholkopf1998nonlinear}
+Bernhard Sch{\"o}lkopf, Alexander Smola, and Klaus-Robert M{\"u}ller.
+\newblock Nonlinear component analysis as a kernel eigenvalue problem.
+\newblock {\em Neural computation}, 10(5):1299--1319, 1998.
+
+\bibitem{yang2008image}
+Jianchao Yang, John Wright, Thomas Huang, and Yi~Ma.
+\newblock Image super-resolution as sparse representation of raw image patches.
+\newblock In {\em Computer Vision and Pattern Recognition, 2008. CVPR 2008.
+  IEEE Conference on}, pages 1--8. IEEE, 2008.
+
+\bibitem{殷俊2013核稀疏保持投影及生物特征识别应用}
+殷俊 and 杨万扣.
+\newblock 核稀疏保持投影及生物特征识别应用.
+\newblock {\em 电子学报}, 41(4):639--645, 2013.
+
+\bibitem{马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法}
+马小虎 and 谭延琪.
+\newblock 基于鉴别稀疏保持嵌入的人脸识别算法.
+\newblock {\em 自动化学报}, 40(1):73--82, 2014.
+
+\end{thebibliography}
