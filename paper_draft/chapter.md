@@ -116,7 +116,7 @@ $$\frac{1}{s}\sum_{j = 1}^{s}\lvert d_{j}-y_{j}(t)\rvert$$
 ## 多层感知器
 感知器可以很好地解决两类线性分类问题，然而却无法解决非线性问题，例如 @fig:xor XOR问题：
 
-![异或问题示意图](./pic/cqu.eps){#fig:xor}
+![异或问题示意图](./pic/xor.eps){#fig:xor}
 
 单个感知器虽然无法解决异或问题，但多个感知器组合则可以实现复杂空间的分割。如 @fig:mlp-xor
 
@@ -136,7 +136,7 @@ $$\frac{1}{s}\sum_{j = 1}^{s}\lvert d_{j}-y_{j}(t)\rvert$$
 
 常用的激活函数为$y(v_{i}) = tanh(v_{i})$和$y(v_{i}) = (1+e^{-v_{i}})^{-1}$。前者是值域处于(-1,1)之间的双曲正切函数，后者是logistic函数，值域在(0,1)。前者是有后者变换而得到，两者形状很相似，两者的图像如 @fig:mlp-act
 
-![多感知器解决异或问题](./pic/cqu.eps){#fig:mlp-act}
+![激活函数图像](./pic/tanh-sigmod.eps){#fig:mlp-act}
 
 ### 梯度下降法
 梯度下降法是一种最优化算法，可以用来优化神经网络结构的参数，由于其原理是寻找最快下降的方向进行优化，因此也称为最快下降法。
@@ -189,7 +189,7 @@ $$\frac{\partial E}{\partial o_{j}} = \frac{\partial E}{\partial y} = \frac{\par
 
 对于非输出层神经元，我们可以将$E(o_{j})$是所有将神经元$j$的输出作为输入的神经元$L = u,v,\ldots,w$的误差函数：
 $$\frac{\partial E}{\partial o_{j}} = \sum_{l\in L}(\frac{\partial E}{\partial net_{l}}\frac{\partial net_{l}}{\partial o_{j}} = \sum_{l\in L}(\frac{\partial E}{\partial o_{l}}\frac{\partial o_{l}}{\partial net_{l}}\omega_{jl}))$${#eq:bp-d-3-2}
-将 @eq:bp-d，@eq:bp-d-1，@eq:bp-d-2，@eq:bp-d-3-1，@eq:bp-d-3-2 组合，得到：
+将 @eq:bp-d，[@eq:bp-d-1;@eq:bp-d-2;@eq:bp-d-3-1;@eq:bp-d-3-2]组合，得到：
 
 $$\frac{\partial E}{\partial \omega_{ij}}= \delta_{j} o_{i}$$
 其中：
@@ -272,16 +272,404 @@ LeNet-5是一个用于手写体识别的网络结构，本节将以此为例展�
 以上就是基本的卷积神经网络结构，在实际应用中，卷积和子采样的层数、卷积过滤器的维数、子采样采样子区域的维数等参数都是可调节的。可以根据具体情况提出有效的网络结构。
 
 ## 常用分类器
+卷积神经网络一般利用softmax回归模型、支持向量机或者一个两到三层的神经网络作为分类器，本文主要涉及softmax回归模型和支持向量机。
+
 ### softmax分类器
+softmax分类器是用softmax回归模型进行分类。softmax回归模型是logistic模型在多类分类问题上的推广，能够有效解决多类问题，例如手写题识别问题需要分十类，此时logistics无法达到目的，但softmax却可以很好地解决。
+
+在理解softmax分类器之前，需要先了解logistic模型。在logistic模型中，训练集由$m$个有标记的样本组成：${(x^{(1)},y^{(1)}),\ldots,(x^{(m)},y_{(m)})}$，输入特征$x^{(i)} \in R^{n+1}$，与感知器理论中相似，特征向量$x$的维度为$n+1$项，其中$x_{0} = 1$ 对应偏移量。类标记$y_{(i)}\in{0,1}$。logistic的假设函数为：
+
+$$h_{\theta}(x)=\frac{1}{1+\exp(-\theta^{T}x)}$$
+代价函数如下：
+$$J(\theta) = - \frac{1}{m}[\sum_{i=1}^{m}y^{(i)}\log h_{\theta}+(1+y^{(i)})log(1-h_{\theta}(x^{(i)})))]$${#eq:logistic-cost}
+训练logistic的过程是通过训练参数$\theta$从而使代价函数的值最小。
+
+在softmax回归中，样本的标记可以取$k$个值，$y^{(i)}\in {1,2,\ldots,k}$。注意此处的下标是从1开始。
+
+对于softmax的假设函数，我们希望能够分别估算出某一样本分别属于各类的概率值$p(y=j|x)$。因此假设函数需要输出一个表示属于$k$类的概率值估计的$k$维向量，所以，softmax的假设函数$h_{\theta}(x)$形式如下：
+
+$$
+    h_{\theta}(x^{(i)})=
+        \left[
+            \begin{array}{ccc}
+                p(y^{(i)}=1|x^{(i)};\theta)\\
+                p(y^{(i)}=2|x^{(i)};\theta)\\
+                \vdots\\
+                p(y^{(i)}=k|x^{(i)};\theta)
+            \end{array}
+        \right]=
+        \frac{1}{\Sigma_{j = 1}^{k}e^{\theta_{j}^{T}x^{(i)}}}
+        \left[
+            \begin{array}{ccc}
+                e^{\theta_{1}^{T}x^{(i)}}\\
+                e^{\theta_{2}^{T}x^{(i)}}\\
+                \vdots\\
+                e^{\theta_{k}^{T}x^{(i)}}
+            \end{array}
+        \right]
+$$
+其中，$\theta_{1},\theta_{2},\ldots,\theta_{k}$为模型参数，$\frac{1}{\Sigma_{j=1}^{k}e^{\theta_{j}^{T}x^{(i)}}}$是对概率进行归一化，使所有概率之和为1。
+
+我们定义$1\{\cdot\}$为示性函数，$1\{\textrm{值为真的表达式}\}=1$;$1\{\textrm{值为假的表达式}\}=0$
+logistic代价函数如 @eq:logistic-cost 所示，同时可以改写成：
+$$J(\theta) = -\frac{1}{m}[\sum_{i=1}^{m}\sum_{j=0}^{1}1\{y^{(i)\}=j}\log p(y^{(i)} = j|x^{(i)};\theta)]$$
+在softmax函数中将样本$x$分为类别$j$的概率为:
+$$p(y^{(i)}=j|x^{(i)};\theta)=\frac{e^{\theta_{j}^{T}x^{(i)}}}{\Sigma_{l=1}^{k}e^{\theta_{j}^{T}x^{(i)}}}$$
+softmax的代价函数表达式为：
+$$J(\theta)= -\frac{1}{m}[\sum_{i=1}^{m}\sum_{j=1}^{k}1{y^{(i)}=j}\log \frac{e^{\theta_{j}^{T}x^{(i)}}}{\Sigma_{l=1}^{k}}e^{\theta_{l}^{T}x^{(i)}}]$$
+softmax代价函数的梯度为:
+$$\nabla_{\theta_{j}}J(\theta) = -\frac{1}{m}\sum_{i=1}^{m}[x^{(i)}(1\{y^{(i)}=j\}-p(y^{(i)}=j|x^{(i)};\theta))]$$
+其中$\nabla_{\theta_{j}}J(\theta)$的第$l$个元素$\frac{\partial J(\theta)}{\partial\theta_{jl}}$是$J(\theta)$对$\theta_{j}$的第$l$个分量的偏导数。
+将其代入梯度下降法中，每一次迭代更新如下：
+$$\theta_{j}:=\theta_{j}-\alpha\nabla_{\theta_{j}}J(\theta)(j=1,\ldots,k)$$
+
 ### 支持向量机
+支持向量机以统计学习理论为基础，可以很好地处理回归问题、分类问题和判别分析等诸多问题。并在预测和综合评价等问题中也表现出很好的效果。本文主要将支持向量机用于分类问题。
+
+####线性支持向量机
+
+支持向量机的原理在于寻找一个最优分类超平面能够在满足分类要求的同时最大化超平面两侧的空白区域。如@fig:svm-linear
+
+![线性SVM原理示意图](./pic/cqu.eps){#fig:svm-linear}
+
+已两类线性分类为例，给定训练数据集$(x_{i},y_{i}),i=1,2,ldots,l,x\in R^{n},y\in{1,-1}$，将超平面记做$(\omega\cdot x_{i})+b=0$，其中$\omega$是一个$n$维向量，b是一个常量。为使分类将所有样本分类正确并有分类间隔，需要满足约束：$y_{i}[w\cdot x_{i}+b]\ge\quad\quad i = 1,2,\ldots,n$
+
+可以计算出分类间隔为$2/\lvert \omega \rvert$，因此求解最优化超平面可以转化成如下约束式进行求解：
+$$\min\Phi(\omega) = \frac{1}{2}\lvert \omega \rvert^{2} = \frac{1}{2}(\omega^{,}\cdot\omega)$$
+为了解决这个问题，引入拉格朗日函数：
+$L(\omega,b,a)=\frac{1}{2}\lvert\omega\rvert-a(y((\omega\cdot x) + b)-1)$
+其中，$a_{i}>0$为拉格朗日乘数。最优解由拉格朗日函数的鞍点决定，最优化解应在鞍点处$\omega$和$b$ 的偏导为0，将该问题转换成相应的对偶问题即：
+$$maxQ(a) = 
+\begin{array}{lll}
+\sum_{j=1}^{l}a_{j}-\frac{1}{2}\sum_{i=1}^{l}\sum_{j=1}^{l}a_{i}a_{j}y_{i}y_{j}(a_{i}\cdot x_{j}) & \\
+s.t.\quad \sum_{j=1}^{l}a_{j}y_{j}=0 & j=1,2,\ldots,l,a_{j}\ge0,j=1,2,\ldots,l
+\end{array}$$
+计算最优解为$a^{*}=(a_{1}^{})$
+最优权值向量和最优偏移量，分别为：
+
+$$\omega^{*} = \sum_{j=1}^{l}a_{j}^{\*}y_{j}x_{j}$$
+$$b^{*} = y_{i}-\sum_{j=1}^{l}y_{j}a_{j}^{\*}(x_{j}\cdot x_{i})$$
+
+其中，下标$j\in{j|a_{j}^{*}>0}$。得到最优分类超平面$(\omega^{\*}\cdot x) + b^{\*}$，最优分类函数为：
+
+$$
+\begin{array}{ll}
+f(x)=sgn\{(\omega^{*}\cdot x)+b^{\*}\}=\\
+sgn\{(\sum_{j=1}^{l}a_{j}^{*}y_{j}(x_{j}\cdot x_{i}))+b^{\*}\},x\in R^{n}
+\end{array}
+$$
+
+####非线性支持向量机
+
+对于非线性问题，支持向量机的主要思想是先将输入数据映射到一个高维空间中，使数据在高维空间中线性可分。设从$x$做从输入空间到$R^{n}$到高维特征空间$H$的变换为$\Phi$，得：
+$$x\to\Phi(x)=(\Phi_{1}(x),\Phi_{2}(x),\ldots,\Phi_{l}(x))^{T}$$
+以特征向量$\Phi(x)$代替输入向量$x$，可以得到非线性最有分类函数为：
+$$
+\begin{array}{ll}
+f(x)=sgn\{(\omega^{*}\cdot \Phi(x))+b^{\*}\}=\\
+sgn\{(\sum_{j=1}^{l}a_{j}^{*}y_{j}(\Phi(x_{j})\cdot \Phi(x_{i}))+b^{\*}\},x\in R^{n}
+\end{array}
+$${#eq:svm-nolear}
+而寻找合适的映射函数$\Phi$是非常复杂，不容易实现。仔细观察@eq:svm-nolear,可以发现最优分类超平面只与内积$<x_{i},x_{j}>$有关，因此支持向量机引入核函数来完成从线性到非线性的变换。常用的核函数有：
+
+1. 多项式核函数：$K(x_{i},K_{j})=(x_{1}^{T}x_{1})^{d}$
+2. Gauss径向基核函数：$K(x_{i},K_{j})=\exp(-q\lvert x_{1}-x_{2}\rvert^{2})$
+3. 其他一些核函数有B-样条函数，Fourier核函数，双曲正切函数等。
+
+#### 多类分类问题
+支持向量机本来是针对二类分类问题的，但在现实中，却又很多问题是多类分类问题，如手写体识别问题等。对于多类分类问题，支持向量集主要有两种解决方案：
+
+1. 将K类分类问题分解成K个二类分类问题。对每个分类器按照是否属于该类别分为正负样本，在经过K个分类器之后，K个类别的数据都被分离开来。
+2. 通过一对一的方法，每次将种类二分，并将样本分为两类，然后再对分得的子集分成两类，继续分类，如此递归，共需要构造$C_{k}^{2}$个分类。
+
 # 基于卷积神经网络的人脸识别
+本章节将卷积神经网络的理论用于人脸识别，给出实验结果，并对实验结果与其他人脸识别方法进行对比分析。
+
 ## YaleB数据集
+Yale人脸库是美国耶鲁大学创建的人脸数据库，共包含15人，每人11张照片，在表情和光照条件下有所变化。YaleB人脸数据集[@GeBeKr01]则是Yale数据库的扩展，扩展的部分包含16128幅图像，28个人，每人包括9种姿态，64种光照条件，图片为PGM格式，图片为$168\times 192$。耶鲁大学还提供了扩展Yale数据库的裁剪版，将人脸范围裁剪下来，形成$32\times 32$，共39(28+11)个人，除去由于拍摄等原因损坏的照片，总共2414张图片，每人有效图片数量大约在60-64张之间。@fig:yaleb 是YaleB人脸库原图和裁剪图的部分样本
+
+![YaleB人脸库](./pic/cqu.eps){#fig:yaleb}
+
+在本文的实验中，我们在每种人脸数据图像中随机抽取5张，共190张作为测试集，同理抽样190张作为验证集。其余图像全部作为网络的训练集，由于样本数量的限制，实验中将测试集同时当作验证集来使用。
+
 ## 网络设计
+这里采用与Le-Net5相似的结构，如[@fig:cnn-net]。参数设置情况如 @tbl:cnn-params
+
+![网络设计图](./pic/cqu.eps){#fig:cnn-net}
+
+| 参数名称        | 参数值|
+|----------------|------:|
+| 卷积层过滤器大小  | $5\times 5$|
+| 卷积层过滤器个数 | 10,20 |
+| 子采样层过滤器大小|$2\times 2$|
+| 隐藏全连接层节点个数|2000|
+| 学习率|0.05|
+| 权值向量$\omega$初值| $\vec{0}$|
+| 偏移量$b$初值|0|
+: 卷积神经网络参数表 {#tbl:cnn-params}
+
+## 网络实现
+### 网络训练与测试流程
+在实验中，设置迭代次数(epoch)为400次，即所有数据将会被输入模型训练400次，每组(patch)输入数据包括40张人脸数据。实验设置停止条件为：当连续超过1000个实例的训练数据都没有使验证集的误判率降低，训练停止。从而使在模型能够找到最优解的同时，防止过拟合。每输入100次数据则会将验证集输入模型进行验证。网络运行流程图如 @cnn-flow 
+
+![网络训练与测试流程图](./pic/cqu.eps){#fig:cnn-flow}
+
+### 编码实现
+Theano是一个引入了多维矩阵计算的基于Python的库，它支持大规模的科学计算；与Python的基础科学计算包NumPy紧紧结合；并且可以使用GPU，在浮点数的计算上速度超过CPU高达140倍；此外，它有动态的C语言生成器，使数学计算更快。Theano中提供了一些深度学习所用的基本函数，例如：卷积函数$conv()$，下采样函数$downsample()$等。文档给出了简单的卷积神经网络的Demo，方便了我们构建卷积神经网络。下面给出关键代码
+
+* 卷积层与下采样层
+
+```
+class ConvPoolLayer(object):
+    def __init__(self, rng, input, filter_shape, image_shape,
+     poolsize=(2, 2)):
+        assert image_shape[1] == filter_shape[1]
+        self.input = input
+        fan_in = numpy.prod(filter_shape[1:])
+        fan_out = (filter_shape[0] * 
+                    numpy.prod(filter_shape[2:]) /
+                    numpy.prod(poolsize))
+        # 初始化
+        W_bound = numpy.sqrt(6. / (fan_in + fan_out))
+        self.W = theano.shared(
+            numpy.asarray(
+                rng.uniform(low=-W_bound, high=W_bound, 
+                            size=filter_shape),
+                dtype=theano.config.floatX
+            ),
+            borrow=True
+        )
+        b_values = numpy.zeros((filter_shape[0],), 
+                   dtype=theano.config.floatX)
+        self.b = theano.shared(value=b_values, borrow=True)
+        # 卷积
+        conv_out = conv.conv2d(
+            input=input,
+            filters=self.W,
+            filter_shape=filter_shape,
+            image_shape=image_shape
+        )
+        # 子采样
+        pooled_out = downsample.max_pool_2d(
+            input=conv_out,
+            ds=poolsize,
+            ignore_border=True
+        )
+        self.output = T.tanh(pooled_out + 
+                        self.b.dimshuffle('x', 0, 'x', 'x'))
+        # 保存参数
+        self.params = [self.W, self.b]
+```
+
+* 隐藏全连接层
+```
+class HiddenLayer(object):
+    def __init__(self, rng, input, n_in, n_out, W=None,
+                 b=None,activation=T.tanh):
+        self.input = input
+        if W is None:
+            W_values = numpy.asarray(
+                rng.uniform(
+                    low=-numpy.sqrt(6. / (n_in + n_out)),
+                    high=numpy.sqrt(6. / (n_in + n_out)),
+                    size=(n_in, n_out)
+                ),
+                dtype=theano.config.floatX
+            )
+            if activation == theano.tensor.nnet.sigmoid:
+                W_values *= 4
+            W = theano.shared(value=W_values, name='W', 
+                            borrow=True)
+        if b is None:
+            b_values = numpy.zeros((n_out,), 
+                                dtype=theano.config.floatX)
+            b = theano.shared(value=b_values, name='b',
+                                borrow=True)
+        self.W = W
+        self.b = b
+        lin_output = T.dot(input, self.W) + self.b
+        self.output = (
+            lin_output if activation is None
+            else activation(lin_output)
+        )
+        # parameters of the model
+        self.params = [self.W, self.b]
+```
+
+* softmax分类器
+
+```
+class LogisticRegression(object):
+    def __init__(self, input, n_in, n_out):
+        self.W = theano.shared(
+            value=numpy.zeros(
+                (n_in, n_out),
+                dtype=theano.config.floatX
+            ),
+            name='W',
+            borrow=True
+        )
+        self.b = theano.shared(
+            value=numpy.zeros(
+                (n_out,),
+                dtype=theano.config.floatX
+            ),
+            name='b',
+            borrow=True
+        )
+        self.p_y_given_x = T.nnet.softmax(
+                            T.dot(input, self.W) + self.b)
+        self.y_pred = T.argmax(self.p_y_given_x, axis=1)
+        self.params = [self.W, self.b]
+
+    def negative_log_likelihood(self, y):
+        return -T.mean(T.log(self.p_y_given_x)
+                        [T.arange(y.shape[0]), y])
+
+    def errors(self, y):
+        if y.ndim != self.y_pred.ndim:
+            raise TypeError(
+              'y should have the same shape as self.y_pred',
+                ('y', y.type, 'y_pred', self.y_pred.type)
+            )
+        if y.dtype.startswith('int'):
+            return T.mean(T.neq(self.y_pred, y))
+        else:
+            raise NotImplementedError()
+```
+
+* 网络结构构造
+
+```
+    layer0_input = x.reshape((batch_size, 1, 32, 32))
+    # 第一层卷积+子采样
+    layer0 = LeNetConvPoolLayer(
+        rng,
+        input=layer0_input,
+        image_shape=(batch_size, 1, 32, 32),
+        filter_shape=(nkerns[0], 1, 5, 5),
+        poolsize=(2, 2)
+    )
+    # 第二层卷积+子采样，输入为上一层的输出：
+    # 上一层卷积后得到：(32-5+1 ,32-5+1) = (28, 28)
+    # 上一层后得到： (28/2, 28/2) = (14, 14)
+    layer1 = LeNetConvPoolLayer(
+        rng,
+        input=layer0.output,
+        image_shape=(batch_size, nkerns[0], 14, 14),
+        filter_shape=(nkerns[1], nkerns[0], 5, 5),
+        poolsize=(2, 2)
+    )
+    # 全连接层
+    layer2_input = layer1.output.flatten(2)
+    layer2 = HiddenLayer(
+        rng,
+        input=layer2_input,
+        n_in=nkerns[1] * 5 * 5,
+        n_out=2000,
+        activation=T.tanh
+    )
+    #分类器
+    layer3 = LogisticRegression(input=layer2.output, 
+                        n_in=2000, n_out=38)   
+    # 代价函数
+    cost = layer3.negative_log_likelihood(y)
+```
+
+## 对比实验
+### PCA-KNN
+PCA，Principal Component Analysis，主成分分析。是基础的数学分析方法，其实际应用十分广泛，是一种常用的多变量分析方法。其主要思想，是探索如何利用少数的主要成分来代表数据中的大部分信息。主成分分析在大大降低维度的同时，能够保持原始数据中大部分信息不被丢失，因此常常被用作数据降维。
+
+KNN，K Nearest Neighbor，K-最近邻方法。是一种有监督的分类算法，也是最简单的机器学习方法之一。其理论已经比较成熟。主要思想是对于一个新的输入实例，在训练集中找与之最邻近的K个实例，若K个实例中大多数属于某个类，就将此输入分入到该类中。KNN算法思想简单易懂，得到了广泛的应用。
+
+文献 @马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法  中，在YaleB数据集上利用PCA对图像数据进行处理，利用少数的维度代表原始数据的信息，完成提取特征的过程，然后利用KNN做分类器做出了实验。
+
+### LPP-KNN
+LPP[@he2005face]，Locality Preserving Projection,局部保持投影，是一种无监督的学习算法。是流形学习方法Laplacian Eigenmap的线性表示，既能避免了PCA[@turk1991eigenfaces]等传统线性方法不能表示原始数据中非线性流形的缺陷[@roweis2000nonlinear]，又能解决非线性方法不易得到新样本点低维投影的问题[@niyogi2004locality]。该算法的主要思想在于通过保持高维数据内在的局部流形结构，来构造出拉普拉斯矩阵来指导降维，从而得到显式的投影矩阵。该算法在人脸识别等问题中能够成功应用。
+
+文献 @马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法  中，在YaleB数据集上利用LPP提取特征，KNN做分类器做出了实验。
+
+### LBP-DBN
+LBP全称Local Binary Pattern、局部二值模式，是一个经典的纹理特征描述子，于1994年有Ojala[@ojala1996comparative]提出，经过多次改进[@mvg:94;@mvg:43]，现在的LBP算子具备了一定的光照不变性和旋转不变性，能够描述角、点、边缘等图像中的细节。一般为了提高旋转不变性和光照不变性，通常会将分块和LBP描述子结合起来，从而提取的纹理特征，既有局部特征又有全局特征。
+
+DBN全称Deep Belief Network、深度信念网络，是一种由受限玻尔兹曼机构成的一种人工神经网络，通过贪心学习算法来进行学习。也经常被用于特征识别、分类问题等领域。
+
+文献 @刘银华2014lbp 中采用分块与LBP结合的方法提取特征并使用深度信念网络进行分类，并在Yale扩展数据库YaleB上进行了实验。
+
 ## 实验结果与分析
-#基于CNN-SVM算法的人脸识别
-## CNN-SVM算法
-## 参数设置
+经过实验，卷积神经网络在YaleB数据库上达到了    的效果，训练过程中误判率的变化图像如 @fig:cnn-err 。通过图像可知，卷积神经网络在人脸识别的过程中错误率由最初的  学习到   ，说明其自学习能力很强。
+
+![误判率变化图](./pic/cqu.eps){#fig:cnn-err}
+
+
+将卷积神经网络与其他的人脸识别方法作比较，可以发现其效果明显好于其它算法。
+
+|  方法| 最佳识别率|
+|--------|------|
+|PCA+KNN[@马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法]||
+|NPE+KNN[@马小虎2014基于鉴别稀疏保持嵌入的人脸识别算法]||
+|LBP+DBN[@刘银华2014lbp]|96.17%|
+|CNN||
+:多种方法下人脸识别正确率对比 {#tbl:cnn-res}
+
+#基于卷积神经网络的人脸特征研究
+本章对卷积神经网络所提取的特征进行探究。卷积神经网络在分类问题上的突出表现，与它对特征的学习是密切相关的。卷积和采样使之能够很好地捕捉到图片信息的细节，多层过滤器更是加强了其描述特征的能力。因此对卷积神经网络所提取的特征的探究是非常有意义的。在本章中，将卷积神经网络与局部二值特征(LBP)[@ojala1996comparative;@mvg:94;@mvg:43]和方向梯度特征(HOG)两种经典的特征提取方式作比较。
+
+## 实验设计
+本实验为对比实验，分别提取卷积神经网络训练得到的特征、局部二值特征和梯度方向特征。分类器统一使用支持向量机。最后将三种特征得到的分类结果进行对比，分析卷积神经网络的优劣势。注意，在支持向量机分类过程中，YaleB训练集属于分类问题，需要将数据分为39类。
+
+
+###实验一：基于卷积神经网络的人脸特征
+在第四章的实验中，我们已经实现了使用卷积神经网络(CNN)实现了人脸识别。为了提取卷积神经网络训练得到的数据，
+
+1. 训练卷积神经网络至误判率不再优化，停止训练。
+2. 保存误判率达到最小时网络的参数。
+3. 利用参数重构网络至全连接层。
+4. 将原始训练集和测试集数据输入网络得到全连接层的数据即是通过该卷积神经网络训练得到的数据结果。
+
+分别将训练集和测试集输入至支持向量机中进行训练和测试。
+
+###实验二：局部二值特征
+局部二值特征(LBP,Local Binary Pattern)[@ojala1996comparative;@mvg:94;@mvg:43]是非常常用的人脸识别特征。用来描述图像局部纹理特征，其主要思想是通过将周围像素与中心像素的灰度值进行比较，用0和1对整幅图像重新编码，得到的仍然是一张图像。为了解决由于“位置没有对准”而造成的较大误差，加入直方图的思想。所以LBP特征的提取过程为：
+
+1. 将图片转成灰度图像。
+2. 将检测图像分成小区域，如$16\times 16$。
+3. 对于小区域中的每个像素，将与之相邻的8个灰度与其进行比较，如果周围像素值大于中心像素值，则将该像素置1，否则将该像素置0。
+4. 计算每个小区域内的直方图，并进行归一化操作。
+5. 将每个小区域连接的统计直方图连接成为一个特征向量，就形成了整个图像的LBP纹理特征向量。
+
+同理我们将训练集和测试集进行提取LBP特征的操作，将结果输入SVM进行训练和测试。
+
+###实验三：方向梯度直方图
+方向梯度直方图(HOG，Histogram of Oriented Gradient)特征[@dalal2005histograms]是一种用于物体检测的特征描述子，在文献 @dalal2005histograms 即是法国学者Dalal提出利用HOG和SVM进行行人检测。HOG特征的主要思想任务局部目标的表象和特征可以通过梯度或者边缘的方向密度函数表示出来。提取HOG特征的过程如下：
+
+1. 灰度化：将图片转成灰度图片，图片信息变成$(x,y,z)$三维数据，$(x,y)$表示在图片上的像素点坐标，z表示该坐标像素下的灰度值。
+2. 颜色空间归一化：一般采用Gamma矫正法，目的在于调节图像的对比度，降低光照变化带来的影响。
+3. 计算梯度：计算图像中每个像素的梯度，捕捉轮廓信息。
+4. 统计梯度直方图：划分细胞单元，并统计单元细胞中的梯度直方图。
+5. 计算块内梯度直方图：将细胞单元合并成面积更大的块，并在块内将梯度直方图归一化。
+
+收集HOG特征：将所有块中的直方图向量收集起来组合成一个大的HOG特征向量，即为该图像的特征向量。
+
+提取HOG特征后，输入SVM进行训练和测试。
+
+## 实验实现
+此实验的实现主要使用MATLAB和Python实现。其中，局部二值特征和方向梯度直方图的提取和收集采用MATLAB实现，其他部分采用Python实现，并且使用了sklearn库。sklearn是一个Python的科学计算库，提供了包括分类、聚类、回归、降维等多种模式识别的方法，包括支持向量机，利用sklearn库可以方便地实现支持向量机的各种情况，包括多类问题等。
+
 ## 实验结果与分析
+三种特征提取方法对人脸提取的特征如 @fig:egi-face
+
+![三种方法特征脸对比](./pic/cqu.eps){#fig:egi-face}
+
+三种特征的分类结果如 @tbl:res-fea ：
+
+|  方法  |  卷积神经网络  |  局部二值特征  |  方向梯度直方图 |
+|--------|:-------:|:-------:|:------:|
+| 正确率 |   0    |  0     |  0    | 
+
+:多种特征识别正确率 {#tbl:res-fea}
+
 # 总结和展望
 ## 全文总结
+
 ## 未来展望
