@@ -34,14 +34,14 @@
 \begin{document}
 
 %-----------------------------------论文题目-------------------------------------------------
-\xuehao{20121892}
-\cntitle{重庆大学\LaTeX 学位论文模板CQU使用说明}
-\cnauthor{张乐}
+\xuehao{20121886}
+\cntitle{基于卷积神经网络的人脸识别}
+\cnauthor{李贝贝}
 \cnmajor{软件工程}
 \cnteacher{葛永新}
 \cnxueyuan{软件学院}
-\entitle{An Instruction of the \LaTeX\ Templet for Chongqing University Thesis}
-\enauthor{Le Zhang}
+\entitle{Face Recognization based on Convolutional Neural Network}
+\enauthor{Beibei Li}
 \enmajor{Software Engineering}
 \enteacher{Prof. Yongxin Ge}
 \enxueyuan{College of Software}
@@ -59,48 +59,38 @@
 \pagenumbering{Roman}
 \setcounter{page}{0}
 %------------------------------------文章摘要------------------------------------------------------------
-\cnkeywords{模板，摘要，论文，\LaTeX}
+\cnkeywords{卷积神经网络，人脸识别，深度学习 }
 \begin{cnabstract}
-摘要是设计或论文内容不加注释和评论的简短陈述，应以第三人称陈述。它应具有独立性和自含性，
-即不阅读设计或论文的全文，就能获得必要的信息，摘要的内容应包含与设计或论文同等量的主要信
-息，供读者确定有无必要阅读全文，也供文摘等二次文献采用。\par
-摘要一般应说明研究工作目的、实验研究方法、结果和最终结论等，而重点是结果和结论。摘要中一
-般不用图、表、化学结构式、计算机程序，不用非公知公用的符号、术语和非法定的计量单位。\par
-摘要页置于英文题名页后。 \par
-中文摘要一般为400汉字左右，用小四号宋体。 \par
-关键词是为了文献标引工作从设计（论文）中选取出来用以表示全文主题内容信息款目的单词或术
-语。一般每篇设计（论文）应选取3~5个词作为关键词，关键词间用逗号隔开，最后一个词后不打标点
-符号。以显著的字符排在同种语言摘要的下方。如有可能，尽量用《汉语主题词表》等词表提供的规
-范词。\par
-本文介绍重庆大学论文模板cqu的使用方法。本模板符合学校的本科论文格式基本要求，而硕博模板
-有待完善。
-本文的创新点主要有:
-\begin{itemize*}
-\item 用例子来解释模板的使用方法;
-\item 用废话来填充无关紧要的部分;
-\item 一边学习摸索一边编写新代码。
-\end{itemize*}
-(模板作者注:中文关键词定义cnkeywords应在使用中文摘要环境之前。英文关键词同理。)
+
+卷积神经网络在提出时就凭借其出色的性能吸引了很多学者的兴趣，与深度学习理论结合，使之再次成为研究热点。
+卷积神经网络引入了稀疏局部连接、权值共享和子采样的思想，与多层感知器相比大大降低了需要训练参数的数量。
+而且在空间上其具有一定的平移、扭曲不变性。目前，卷积神经网络被广泛用到模式识别的各个领域。\par
+
+人脸识别是模式识别领域一直以来的热点和重难点，采用卷积神经网络进行人脸识别可以突破传统识别方法的瓶颈，具有重要的意义和价值。\par
+
+本文旨在将卷积神经网络应用于人脸识别，围绕此目标，主要做了如下工作：
+
+1.  总结和理解了感知器、多层感知器、梯度递减、后向传播等神经网络基础知识，学习卷积神经网络的主要思想和特点，理解其优越性。\par
+2.  将卷积神经网络用于人脸识别问题并将结果与其他识别方法对比分析。最终卷积神经网络以96.63\%的正确率超过其它方法，并远远超过传统方法。\par
+3.  分别使用卷积神经网络和传统特征提取方法对人脸数据进行特征提取并通过实验做比较分析。通过卷积神经网络的特征表现出更好的性能。
+
 \end{cnabstract} 
-\enkeywords{template, \LaTeX, abstract, paper}
+\enkeywords{convolutional neural network , face recognition, deep learning}
 \begin{enabstract}
-     An abstract of a dissertation is a summary and extraction of 
-research work and contributions. Included in an abstract should be 
-description of research topic and research objective, brief 
-introduction to methodology and research process, and summarization 
-of conclusion and contributions of the research. An abstract should be 
-characterized by independence and clarity and carry identical 
-information with the dissertation. It should be such that the general 
-idea and major contributions of the dissertation are conveyed
-without reading the dissertation.\par
-     An abstract should be concise and to the point. It is a 
-misunderstanding to make an abstract an outline of the dissertation and 
-words “the first chapter”, “the second chapter” and the like should be 
-avoided in the abstract.\par
-     Key words are terms used in a dissertation for indexing, 
-reflecting core information of the dissertation. An abstract may 
-contain a maximum of 5 key words, with semicolons used in between to 
-separate one another.
+
+Convolutional neural network attracted the interest of many scholars when it's proposed due to the excellent performence. Combining with deep learning, it become a hot topic once again. 
+Convolutional neural network involved the idea of spatially-local correlation, shared weights and sampling, reducing the number of parameters to be trained comparing with multilayer perceptron. Besides, it has an advantage of translation, distorion invariance. Convolution neural network is widely used in various fields for pattern recognition.\par
+
+Face recognition has been a hot, important and difficult spot in the field of pattern recognition. With the help of convolutional neural network, the bottleneck of traditional identification methods can be broken, which is significant and meaningful.\par
+
+This paper aims to apply convolutional neural network to face recognition. And the following work was done:
+
+1. Summary and understanding of perception, Multilayer Perceptron, gradient descent, backward propagation neural network and other basics, learn the main ideas and features of convolutional neural network and understand its advantages.\par
+
+2. Do face recognition with convolutional neural network and some traditional methods, then make a comparison and analysis. And convolutional neural network is better than other methods with an accuracy rate of 96.63\%, and far better than traditional methods.\par
+
+3. Extracting features through convolution neural network, and make comparison and analysis with features extracted by other traditional methods. And features extracted by convolutional neural network showed better performance. 
+     
 \end{enabstract}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -115,21 +105,8 @@ separate one another.
 %------------------------------------词汇------------------------------------------------------------
 \begin{denotation}{2.5}{0}
 
-\item[cluster] 集群
-\item[Itanium] 安腾
-\item[SMP] 对称多处理
-\item[API] 应用程序编程接口
-\item[PI]   聚酰亚胺
-\item[劝  学] 君子曰：学不可以已。青，取之于蓝，而青于蓝；冰，水为之，而寒于水。
-  木直中绳。（车柔）以为轮，其曲中规。虽有槁暴，不复挺者，（车柔）使之然也。故木
-  受绳则直， 金就砺则利，君子博学而日参省乎己，则知明而行无过矣。吾尝终日而思
-  矣，  不如须臾之所学也；吾尝（足齐）而望矣，不如登高之博见也。登高而招，臂非加
-  长也，  而见者远；  顺风而呼，  声非加疾也，而闻者彰。假舆马者，非利足也，而致
-  千里；假舟楫者，非能水也，而绝江河，  君子生非异也，善假于物也。积土成山，风雨
-  兴焉；积水成渊，蛟龙生焉；积善成德，而神明自得，圣心备焉。故不积跬步，无以至千
-  里；不积小流，无以成江海。骐骥一跃，不能十步；驽马十驾，功在不舍。锲而舍之，朽
-  木不折；  锲而不舍，金石可镂。蚓无爪牙之利，筋骨之强，上食埃土，下饮黄泉，用心
-  一也。蟹六跪而二螯，非蛇鳝之穴无可寄托者，用心躁也。\pozhehao{} 荀况
+\item[w] 权值向量
+\item[b] 偏移量
 \end{denotation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
